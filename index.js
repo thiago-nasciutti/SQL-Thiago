@@ -162,32 +162,28 @@ function addEmployee() {
 };
 // Function: Update Employee Role
 function updateEmployeeRole() {
-    const query = "SELECT * FROM employee";
-    connection.query(query, (err, res) => {
-        console.table(res);
-    }),
-        inquirer.prompt([
-            {
-                type: "input",
-                message: "What is the id of the employee you want to update? ",
-                name: "eId",
-            },
-            {
-                type: "input",
-                message: "What is the new role id? ",
-                name: "NRole",
-            },
-        ])
-            .then(function (answer) {
-                const query = `UPDATE employee SET role_id = ${answer.NRole} WHERE id = ${answer.eId}`;
-                connection.query(query, (err, res) => {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        viewAllemployees();
-                    }
-                });
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "What is the id of the employee you want to update? ",
+            name: "eId",
+        },
+        {
+            type: "input",
+            message: "What is the new role id? ",
+            name: "NRole",
+        },
+    ])
+        .then(function (answer) {
+            const query = `UPDATE employee SET role_id = ${answer.NRole} WHERE id = ${answer.eId}`;
+            connection.query(query, (err, res) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    viewAllemployees();
+                }
             });
+        });
 };
 
 // Call Menu
